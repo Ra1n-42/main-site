@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+:root {
+  --fs-xl: 5rem;
+  --fs-600: 1.5rem;
+  --fs-500: 1.25rem;
+  --fs-400: 1rem; /*default*/
+
+  --mrg: 20px;
+  --logo-fs: 21px;
+  --avararsize: 40px;
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+header {
+  z-index: 500;
+  position: sticky;
+  display: flex;
+  height: 90px;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* box-shadow: 1px 0px 12px 2px rgba(0, 0, 0, 0.27); */
+  background-color: white;
+  border-bottom: 1px solid black;
+  justify-content: space-between;
+  padding-inline: 30px;
+  caret-color: transparent;
+}
+.Logo {
+  display: flex;
+  align-items: center;
+
+  & .LogoLabel {
+    color: rgb(0, 0, 0);
+    font-size: var(--logo-fs);
+    font-weight: 700;
+    text-decoration: none;
+  }
+}
+.Join,
+.UserLogin,
+#Avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .UserLogin {
+    /* width: 32px;
+    height: 32px; */
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+    &:hover {
+      background-color: rgba(4, 12, 12, 0.103);
+    }
+  }
+}
+.UserPanel {
+  position: absolute;
+  z-index: 1;
+  margin-top: 70px;
+  right: 36px;
+  display: none;
+  & .UserPanelSkeleton {
+    width: 250px;
+    border-radius: 16px;
+    padding: 20px;
+    background-color: whitesmoke;
+    box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.75);
+    & .PanelHeader {
+      display: flex;
+      justify-content: center;
+      padding: 5px;
+      margin-bottom: 10px;
+      border-top-right-radius: 13px;
+      border-top-left-radius: 13px;
+      background-color: rgb(255, 255, 255);
+
+      & .Email {
+        font-style: italic;
+        font-size: 13px;
+      }
+    }
+    & .PanelBody {
+      display: flex;
+      flex-direction: column;
+      background-color: rgb(255, 255, 255);
+      border-bottom-right-radius: 13px;
+      border-bottom-left-radius: 13px;
+      font-size: 14px;
+      padding: 15px;
+      & :hover {
+        background-color: rgb(238, 237, 237);
+      }
+      & a {
+        display: flex;
+        align-items: center;
+        border-radius: 2px;
+        margin: 8px 0 8px;
+        padding: 5px;
+        text-decoration: none;
+        color: black;
+        & span {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
+
+#Avatar {
+  font-size: 25px;
+  font-weight: 500;
+  width: var(--avararsize);
+  height: var(--avararsize);
+  background-color: rgba(220, 220, 220, 0.47);
+  border-radius: 50%;
+
+  border: 1px solid rgba(188, 188, 188, 0.268);
+
+  &::after {
+    content: attr(data-label);
+  }
+  &:hover {
+    box-shadow: 0px 0px 5px -1px rgba(129, 129, 129, 0.75);
+  }
+  & img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: inherit;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --avararsize: 50px;
+    --logo-fs: 30px;
+  }
+}

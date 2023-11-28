@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <title>GXTrade</title>
+  </head>
+  <body>
+    <%- include ('partials/header'); -%>
+
+    <div class="Prefilter">
+      <div class="GameDropDownMenu">
+        <div class="dropdown">
+          <div class="select">
+            <span class="selected">Wähle das Spiel aus...</span>
+            <div class="caret"></div>
+          </div>
+          <ul class="menu">
+            <li>Metin2</li>
+            <li>World of Warcraft</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="PopularContainer">
+      <h1>Popular</h1>
+    </div>
+    <div class="NewCollection">
+      <div class="CollectionContainer">
+        <div class="ContainerTitle">
+          <h1>Neues</h1>
+          <a class="TitleLink" href="/news">See all News ></a>
+        </div>
+        <ul class="card"></ul>
+      </div>
+    </div>
+    <script>
+      const dropdowns = document.querySelectorAll(".dropdown");
+
+      dropdowns.forEach((dropdown) => {
+        const select = dropdown.querySelector(".select");
+        const caret = dropdown.querySelector(".caret");
+        const menu = dropdown.querySelector(".menu");
+        const options = dropdown.querySelectorAll(".menu li");
+        const selected = dropdown.querySelector(".selected");
+
+        select.addEventListener("click", () => {
+          select.classList.toggle("select-clicked");
+          caret.classList.toggle("caret-rotate");
+          menu.classList.toggle("menu-open");
+        });
+        options.forEach((option) => {
+          option.addEventListener("click", () => {
+            selected.innerHTML = option.innerHTML;
+            select.classList.remove("select-clicked");
+            caret.classList.remove("caret-rotate");
+            menu.classList.remove("menu-open");
+            options.forEach((option) => {
+              option.classList.remove("active");
+            });
+            option.classList.add("active");
+          });
+        });
+      });
+
+      const UserDB = [
+        {
+          id: 1,
+          name: "Plechito",
+          img: "https://cdn.discordapp.com/avatars/504640690190417920/9f274fd92445165a9fa5f69dec115301.webp?size=80",
+        },
+        {
+          id: 2,
+          name: "Joe",
+          img: "http://localhost:3001/profileimg/64b9a83b6aedd96435295134",
+        },
+      ];
+      let DB = [
+        {
+          id: 1,
+
+          description: {
+            owner: 1,
+            title: "The beyond horse",
+            game: "Metin2",
+          },
+          assets: {
+            img: ["https://plechito.com/wp-content/uploads/2022/10/mount1.jpg"],
+            source:
+              "https://mega.nz/file/H85xnazT#MKbgOdPx3HdbdCN_iGT6yPJzGDnEYc9dj9AhHX_ex7I",
+          },
+          price: 0,
+        },
+        {
+          id: 2,
+          description: {
+            owner: 1,
+            title: "Traveler bird",
+            game: "Metin2",
+          },
+          assets: {
+            img: [
+              "https://i0.wp.com/plechito.com/wp-content/uploads/2021/05/pet_traveler_bird.jpg",
+            ],
+            source:
+              "https://mega.nz/file/mhRBTaSQ#DyPQ1XZGxZ7aDzOH2oYGP52GAIkA22S9v0ZI48emLN0",
+          },
+          price: 0,
+        },
+        {
+          id: 3,
+          description: {
+            owner: 1,
+            title: "Undead mage pet",
+            game: "Metin2",
+          },
+          assets: {
+            img: [
+              "https://i0.wp.com/plechito.com/wp-content/uploads/2023/10/pet_skull_necromancer.jpg",
+            ],
+            source: "https://plechito.com/pets/",
+          },
+          price: 7.0,
+        },
+        {
+          id: 4,
+          description: {
+            owner: 1,
+            title: "Royal phoenix wings",
+            game: "Metin2",
+          },
+          assets: {
+            img: [
+              "https://i0.wp.com/plechito.com/wp-content/uploads/2021/10/wings_royal_phoenix.jpg",
+            ],
+            source:
+              "https://mega.nz/file/G5gBHKgD#6ebsNYuMOdbTa76w5j0obl1CmP1cpHSBI7S_hEcTMg4",
+          },
+          price: 0,
+        },
+        {
+          id: 5,
+          description: {
+            owner: 1,
+            title: "Jiangshi's phoenix",
+            game: "Metin2",
+          },
+          assets: {
+            img: [
+              "https://i0.wp.com/plechito.com/wp-content/uploads/2023/10/pet15.jpg",
+            ],
+            source:
+              "https://mega.nz/file/SgoFQCJR#0FExmP4UXBl4zVvPdpKZt9ppMPHKtYJ6P_Q7YdKN2CQ",
+          },
+          price: 0,
+        },
+      ];
+
+      function createImage(parent, name, image) {
+        const img = document.createElement("img");
+        img.src = image;
+        if (name !== "") {
+          img.classList.add(name);
+        }
+        parent.appendChild(img);
+        return img;
+      }
+      function createDivContainer(parent, name) {
+        const imgContainer = document.createElement("div");
+        imgContainer.classList.add(name);
+        parent.appendChild(imgContainer);
+        return imgContainer;
+      }
+
+      function createCards() {
+        // Container-Element aus dem DOM holen
+        const container = document.querySelector(".card");
+
+        // Für jedes Objekt in DB eine Karte erstellen
+        DB.forEach((item) => {
+          // li-Element erstellen
+          const listItem = document.createElement("li");
+          listItem.classList.add("ListItem");
+
+          // Bildcontainer
+          const imgContainer = createDivContainer(listItem, "ImageContainer");
+
+          // Bild hinzufügen
+          createImage(imgContainer, "Image", item.assets.img[0]);
+
+          // Container für jedes untere element hinzufügen
+
+          const ItemDescription = createDivContainer(
+            listItem,
+            "ItemDescription"
+          );
+
+          // Titel hinzufügen
+
+          const title = createDivContainer(ItemDescription, "CardTitle");
+          title.textContent = item.description.title;
+
+          // Besitzerinformationen suchen
+          const ownerMatch = UserDB.find(
+            (user) => user.id === item.description.owner
+          );
+          if (ownerMatch) {
+            // Container erstellen
+
+            const OwnerContainer = createDivContainer(
+              ItemDescription,
+              "OwnerContainer"
+            );
+
+            // Avatar erstellen
+            createImage(OwnerContainer, "", ownerMatch.img);
+
+            // Besitzer-Name erstellen
+            createDivContainer(OwnerContainer, "OwnerName").textContent =
+              ownerMatch.name;
+
+            // Besitzer-Element zum Container hinzufügen
+            ItemDescription.appendChild(OwnerContainer);
+          }
+
+          // Preis hinzufügen
+          const price = document.createElement("p");
+          price.textContent = `Price: ${
+            item.price === 0 ? "Free" : item.price + "€"
+          }`;
+
+          ItemDescription.appendChild(price);
+
+          // Knopf für kaufen oder Downloaden hinzufügen
+
+          const dob = createDivContainer(ItemDescription, "DobButton");
+          dob.textContent = item.price === 0 ? "Download" : "Kaufen";
+          dob.dataset.link = item.assets.source;
+
+          // li-Element zur Liste hinzufügen
+          container.appendChild(listItem);
+        });
+      }
+
+      createCards();
+      document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("DobButton")) {
+          window.location.href = event.target.dataset.link;
+        }
+      });
+    </script>
+  </body>
+</html>

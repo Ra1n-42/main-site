@@ -1,0 +1,86 @@
+<head>
+  <link rel="stylesheet" href="/css/header_style.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+  />
+</head>
+<header>
+  <div class="Logo"><a class="LogoLabel" href="/">GXTrade</a></div>
+  <div class="Join">
+    <% if (user) {%>
+    <div class="User">
+      <div id="Avatar" data-label="<%= user.name[0] %>">
+        <img id="profileImage" src="/profileimg/<%= user._id  %>" alt="" />
+      </div>
+    </div>
+
+    <% } else {%>
+    <a class="UserLogin" href="/login">
+      <span class="material-symbols-outlined"> account_circle </span>
+    </a>
+    <% }%>
+  </div>
+  <% if (user) {%>
+  <div class="UserPanel">
+    <div class="UserPanelSkeleton">
+      <div class="PanelHeader">
+        <div class="Email"><%= user.email %></div>
+        <!-- <div class="Avatar">AVATAR</div> -->
+      </div>
+      <div class="PanelBody">
+        <a href="/mycollection"
+          ><span class="material-symbols-outlined"> transition_dissolve </span
+          >Meine Kollektion</a
+        >
+        <a href="/settings"
+          ><span class="material-symbols-outlined"> settings </span>
+          Einstellungen</a
+        ><a href="/logout"
+          ><span class="material-symbols-outlined"> logout </span>Ausloggen</a
+        >
+      </div>
+    </div>
+  </div>
+  <% }%>
+</header>
+<script>
+  let profileImage = document.getElementById("profileImage");
+  let avatar = document.getElementById("Avatar");
+  function ShowUserPanel() {
+    let userPanel = document.querySelector(".UserPanel");
+    let isShown = userPanel.style.display;
+
+    // Überprüfen, ob das Element sichtbar ist
+    if (isShown === "none" || isShown === "") {
+      // Element ist unsichtbar oder nicht festgelegt, also anzeigen
+      userPanel.style.display = "inline";
+    } else {
+      // Element ist sichtbar, also ausblenden
+      userPanel.style.display = "none";
+    }
+  }
+
+  // Event-Listener für Klicks auf das Dokument
+  document.addEventListener("click", function (event) {
+    let userPanel = document.querySelector(".UserPanel");
+
+    // Überprüfen, ob das geklickte Element weder das UserPanel noch der User-Button ist
+    if (!event.target.closest(".UserPanel") && !event.target.closest(".User")) {
+      // Verberge das UserPanel, wenn auf ein anderes Element geklickt wurde
+      userPanel.style.display = "none";
+    } else if (event.target.closest(".User")) {
+      // Wenn auf den User-Button geklickt wurde, rufe die Funktion auf
+      ShowUserPanel();
+    }
+  });
+  if (profileImage) {
+    profileImage.onload = function () {
+      avatar.removeAttribute("data-label");
+    };
+    profileImage.onerror = function () {
+      avatar.dataset.label = "<%= user?.name[0] %>";
+      profileImage.style.display = "none";
+    };
+  }
+</script>
