@@ -121,6 +121,7 @@ header {
   background-color: rgba(220, 220, 220, 0.47);
   border-radius: 50%;
 
+  cursor: pointer;
   border: 1px solid rgba(188, 188, 188, 0.268);
 
   &::after {

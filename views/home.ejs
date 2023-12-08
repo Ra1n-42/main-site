@@ -8,12 +8,11 @@
   </head>
   <body>
     <%- include ('partials/header'); -%>
-
     <div class="Prefilter">
       <div class="GameDropDownMenu">
         <div class="dropdown">
           <div class="select">
-            <span class="selected">Wähle das Spiel aus...</span>
+            <span class="selected">Choose a game...</span>
             <div class="caret"></div>
           </div>
           <ul class="menu">
@@ -23,47 +22,15 @@
         </div>
       </div>
     </div>
-    <div class="PopularContainer">
-      <h1>Popular</h1>
-    </div>
-    <div class="NewCollection">
-      <div class="CollectionContainer">
-        <div class="ContainerTitle">
-          <h1>Neues</h1>
-          <a class="TitleLink" href="/news">See all News ></a>
-        </div>
-        <ul class="card"></ul>
+    <div class="PopularContainer"></div>
+    <div class="CollectionContainer">
+      <div class="ContainerTitle">
+        <h1>News</h1>
+        <a class="TitleLink" href="/news">See all News ></a>
       </div>
+      <ul class="card"></ul>
     </div>
     <script>
-      const dropdowns = document.querySelectorAll(".dropdown");
-
-      dropdowns.forEach((dropdown) => {
-        const select = dropdown.querySelector(".select");
-        const caret = dropdown.querySelector(".caret");
-        const menu = dropdown.querySelector(".menu");
-        const options = dropdown.querySelectorAll(".menu li");
-        const selected = dropdown.querySelector(".selected");
-
-        select.addEventListener("click", () => {
-          select.classList.toggle("select-clicked");
-          caret.classList.toggle("caret-rotate");
-          menu.classList.toggle("menu-open");
-        });
-        options.forEach((option) => {
-          option.addEventListener("click", () => {
-            selected.innerHTML = option.innerHTML;
-            select.classList.remove("select-clicked");
-            caret.classList.remove("caret-rotate");
-            menu.classList.remove("menu-open");
-            options.forEach((option) => {
-              option.classList.remove("active");
-            });
-            option.classList.add("active");
-          });
-        });
-      });
-
       const UserDB = [
         {
           id: 1,
@@ -83,7 +50,7 @@
           description: {
             owner: 1,
             title: "The beyond horse",
-            game: "Metin2",
+            game: ["Metin2"],
           },
           assets: {
             img: ["https://plechito.com/wp-content/uploads/2022/10/mount1.jpg"],
@@ -97,7 +64,7 @@
           description: {
             owner: 1,
             title: "Traveler bird",
-            game: "Metin2",
+            game: ["Metin2"],
           },
           assets: {
             img: [
@@ -113,7 +80,7 @@
           description: {
             owner: 1,
             title: "Undead mage pet",
-            game: "Metin2",
+            game: ["Metin2"],
           },
           assets: {
             img: [
@@ -128,7 +95,7 @@
           description: {
             owner: 1,
             title: "Royal phoenix wings",
-            game: "Metin2",
+            game: ["Metin2"],
           },
           assets: {
             img: [
@@ -144,7 +111,7 @@
           description: {
             owner: 1,
             title: "Jiangshi's phoenix",
-            game: "Metin2",
+            game: ["Metin2"],
           },
           assets: {
             img: [
@@ -183,6 +150,8 @@
           const listItem = document.createElement("li");
           listItem.classList.add("ListItem");
 
+          listItem.dataset.games = item.description.game;
+
           // Bildcontainer
           const imgContainer = createDivContainer(listItem, "ImageContainer");
 
@@ -200,6 +169,15 @@
 
           const title = createDivContainer(ItemDescription, "CardTitle");
           title.textContent = item.description.title;
+          const gameList = createDivContainer(title, "ImplementedIn");
+
+          item.description.game.forEach((gameTitle, i) => {
+            createImage(
+              gameList,
+              "game",
+              gameTitle === "Metin2" ? "/img/Metin2.webp" : ""
+            );
+          });
 
           // Besitzerinformationen suchen
           const ownerMatch = UserDB.find(
@@ -235,7 +213,7 @@
           // Knopf für kaufen oder Downloaden hinzufügen
 
           const dob = createDivContainer(ItemDescription, "DobButton");
-          dob.textContent = item.price === 0 ? "Download" : "Kaufen";
+          dob.textContent = item.price === 0 ? "Download" : "Buy";
           dob.dataset.link = item.assets.source;
 
           // li-Element zur Liste hinzufügen
@@ -244,10 +222,43 @@
       }
 
       createCards();
+
+      // Click Events
       document.addEventListener("click", function (event) {
         if (event.target.classList.contains("DobButton")) {
           window.location.href = event.target.dataset.link;
         }
+        if (event.target.classList.contains("MoreInfo")) {
+          console.log("MoreInfo", "clicked");
+        }
+      });
+
+      // DropDownMenu games
+      const dropdowns = document.querySelectorAll(".dropdown");
+      dropdowns.forEach((dropdown) => {
+        const select = dropdown.querySelector(".select");
+        const caret = dropdown.querySelector(".caret");
+        const menu = dropdown.querySelector(".menu");
+        const options = dropdown.querySelectorAll(".menu li");
+        const selected = dropdown.querySelector(".selected");
+
+        select.addEventListener("click", () => {
+          select.classList.toggle("select-clicked");
+          caret.classList.toggle("caret-rotate");
+          menu.classList.toggle("menu-open");
+        });
+        options.forEach((option) => {
+          option.addEventListener("click", () => {
+            selected.innerHTML = option.innerHTML;
+            select.classList.remove("select-clicked");
+            caret.classList.remove("caret-rotate");
+            menu.classList.remove("menu-open");
+            options.forEach((option) => {
+              option.classList.remove("active");
+            });
+            option.classList.add("active");
+          });
+        });
       });
     </script>
   </body>
