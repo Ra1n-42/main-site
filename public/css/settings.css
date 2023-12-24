@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  background: green;
+  height: 90.7svh;
+  align-items: center;
+  justify-content: center;
+  & h1 {
+    /* color: red; */
+  }
+}

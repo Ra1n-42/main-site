@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/login_out_style.css" />
     <title>GXTrade - Sign Up</title>
+    <%- include ('partials/header'); -%>
   </head>
   <body>
-    <%- include ('partials/header'); -%>
     <div class="WrapperSceleton">
       <div class="wrapper">
         <div class="title-text">
@@ -74,10 +74,11 @@
         const email = form.email.value;
         const password = form.password.value;
         const name = form.name.value;
+        const image = "";
         try {
           const res = await fetch("/signup", {
             method: "POST",
-            body: JSON.stringify({ email, password, name }),
+            body: JSON.stringify({ email, password, name, image }),
             headers: { "Content-Type": "application/json" },
           });
 

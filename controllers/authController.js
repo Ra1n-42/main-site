@@ -57,6 +57,12 @@ module.exports.get_home = (req, res) => {
 module.exports.get_card = (req, res) => {
   res.render("card");
 };
+module.exports.get_settings = (req, res) => {
+  res.render("settings");
+};
+module.exports.mycollections = (req, res) => {
+  res.render("mycollections");
+};
 // render collection
 module.exports.get_collection = (req, res) => {
   res.send(`${req.params.name}`);

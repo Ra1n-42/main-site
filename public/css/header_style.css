@@ -25,7 +25,7 @@ header {
   right: 0;
   /* box-shadow: 1px 0px 12px 2px rgba(0, 0, 0, 0.27); */
   background-color: white;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
   justify-content: space-between;
   padding-inline: 30px;
   caret-color: transparent;
@@ -51,12 +51,16 @@ header {
   & .UserLogin {
     /* width: 32px;
     height: 32px; */
+
     cursor: pointer;
     text-decoration: none;
     color: black;
     border-radius: 5px;
     &:hover {
       background-color: rgba(4, 12, 12, 0.103);
+    }
+    & span {
+      font-size: 31px;
     }
   }
 }
@@ -126,6 +130,7 @@ header {
 
   &::after {
     content: attr(data-label);
+    /* content: ""; */
   }
   &:hover {
     box-shadow: 0px 0px 5px -1px rgba(129, 129, 129, 0.75);

@@ -1,17 +1,21 @@
 const express = require("express");
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 const authRoutes = require("./routes/authRoutes");
-const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const Database = require("./models/db");
 
 // test
 const Collection = require("./models/collection");
 
+// load env
 require("dotenv").config();
 
+// set variables
 const app = express();
 const port = 3001;
+const dbURI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_USER_PASSWORD}@cluster0.wz15r9n.mongodb.net/node-auth`;
+const db = new Database(dbURI);
 
 // middleware
 app.use(express.static(path.join(__dirname, "public")));
@@ -21,19 +25,19 @@ app.use(cookieParser());
 // view engine
 app.set("view engine", "ejs");
 
-// database connection
-const dbURI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_USER_PASSWORD}@cluster0.wz15r9n.mongodb.net/node-auth`;
-mongoose
-  .connect(dbURI)
-  .then(() =>
-    app.listen(port, () => {
-      console.log(`server is running open http://localhost:${port}`);
-    })
-  )
-  .catch((err) => {
-    console.log("Connection Failed");
-    console.log(err);
+// Funktion zum Starten des Servers
+const startServer = () => {
+  app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
   });
+};
+
+// Verbindung zur Datenbank herstellen und dann den Server starten
+db.connect().then((isConnected) => {
+  if (isConnected) {
+    startServer();
+  }
+});
 
 // routes
 app.get("*", checkUser);
@@ -84,11 +88,6 @@ app.get("/collection/:collName", async (req, res) => {
   } else {
     res.render("error");
   }
-});
-app.get("/MyCollection", checkUser, requireAuth, (req, res) => {
-  res.render("mycollection", {
-    style: "mycollection.css",
-  });
 });
 
 app.use(authRoutes);

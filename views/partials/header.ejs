@@ -11,7 +11,19 @@
     <% if (user) {%>
     <div class="User">
       <div id="Avatar" data-label="<%= user.name[0] %>">
-        <img id="profileImage" src="/profileimg/<%= user._id  %>" alt="" />
+        <img id="profileImage" alt="" />
+        <script>
+          if ("<%= user.image %>") {
+            var img = new Image();
+            img.src = "/profileimg/<%= user._id %>";
+            img.onload = function () {
+              document.getElementById("profileImage").src = img.src;
+              avatar.removeAttribute("data-label");
+            };
+          } else {
+            document.getElementById("profileImage").style.display = "none";
+          }
+        </script>
       </div>
     </div>
 
@@ -29,7 +41,7 @@
         <!-- <div class="Avatar">AVATAR</div> -->
       </div>
       <div class="PanelBody">
-        <a href="/mycollection"
+        <a href="/mycollections"
           ><span class="material-symbols-outlined"> transition_dissolve </span
           >My Coollection</a
         >
@@ -44,7 +56,6 @@
   <% }%>
 </header>
 <script>
-  let profileImage = document.getElementById("profileImage");
   let avatar = document.getElementById("Avatar");
   function ShowUserPanel() {
     let userPanel = document.querySelector(".UserPanel");
@@ -73,13 +84,4 @@
       ShowUserPanel();
     }
   });
-  if (profileImage) {
-    profileImage.onload = function () {
-      avatar.removeAttribute("data-label");
-    };
-    profileImage.onerror = function () {
-      avatar.dataset.label = "<%= user?.name[0] %>";
-      profileImage.style.display = "none";
-    };
-  }
 </script>

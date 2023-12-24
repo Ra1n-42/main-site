@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/login_out_style.css" />
     <title>GXTrade - Sign In</title>
+    <%- include ('partials/header'); -%>
   </head>
   <body>
-    <%- include ('partials/header'); -%>
     <div class="WrapperSceleton">
       <div class="wrapper">
         <div class="title login">Sign In</div>
@@ -71,7 +71,7 @@
           });
 
           const data = await res.json();
-          console.log(data);
+
           if (data.errors) {
             emailError.textContent = data.errors.email;
             passwordError.textContent = data.errors.password;
