@@ -4,10 +4,121 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/css/settings.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GXTrade - Settings</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0"
+    />
+    <title>sGXTrade - Settings</title>
   </head>
   <body>
     <%- include ('partials/header'); -%>
-    <div class="container"><h1>COMING SOON</h1></div>
+    <main>
+      <div class="dashboard">
+        <div class="nav">
+          <a href="#" data-status="active">
+            <span class="material-symbols-outlined"> person </span>
+            Persönliche Daten
+          </a>
+          <a href="#"
+            ><span class="material-symbols-outlined"> security </span
+            >Sicherheit</a
+          >
+          <a href="#"
+            ><span class="material-symbols-outlined"> payments </span>Zahlungen
+            & Abbos</a
+          >
+        </div>
+      </div>
+      <div class="main__content">
+        <div class="personal_0">
+          <h1>Persönliches</h1>
+
+          <form id="uploadForm">
+            <div class="profilecard">
+              <div class="profileimg">
+                <div id="Avatar" data-label="<%= user.name[0] %>"></div>
+                <label class="labelBtn" for="myFile">
+                  <div class="notification"><span>1</span></div>
+                  <span class="material-symbols-rounded pictureIcon">
+                    add_a_photo
+                  </span>
+                </label>
+                <input
+                  type="file"
+                  id="myFile"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </div>
+              <div class="inputfields">
+                <label for="name">Name: </label>
+                <input
+                  class="nameinput"
+                  type="text"
+                  name="name"
+                  value="<%= user.name %>"
+                  pattern=".{3,}"
+                  title="Mindestens 3 Zeichen erforderlich"
+                  disabled
+                /><button
+                  type="button"
+                  class="username"
+                  onclick="unlockinput()"
+                >
+                  change
+                </button>
+              </div>
+            </div>
+            <input class="update" type="submit" value="Update" />
+          </form>
+        </div>
+      </div>
+    </main>
+    <script>
+      const form = document.getElementById("uploadForm");
+      const myFiles = document.getElementById("myFile");
+
+      myFiles.addEventListener("change", () => {
+        const file = myFiles.files[0];
+        document.querySelector(".notification").style.display = file
+          ? "flex"
+          : "none";
+      });
+      function SendFile() {
+        const file = myFiles.files[0];
+
+        const formData = new FormData();
+        formData.append(
+          "profile-image", // key word
+          file,
+          "profile.".concat(file.name.split(".")[1]) // verbintet "profile." mit der endung der datei
+        );
+
+        fetch("http://localhost:3001/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
+      }
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+      });
+
+      function unlockinput() {
+        document.querySelector(".nameinput").removeAttribute("disabled");
+      }
+      document.querySelectorAll("a").forEach((element) => {
+        element.addEventListener("click", () => {
+          // Remove data-status attribute from all <li> elements
+          document.querySelectorAll("a").forEach((li) => {
+            li.removeAttribute("data-status");
+          });
+
+          // Set data-status attribute to "active" for the clicked <li> element
+          element.setAttribute("data-status", "active");
+        });
+      });
+    </script>
   </body>
 </html>

@@ -5,10 +5,13 @@
   user-select: none;
 }
 .Prefilter {
+  margin-top: 90px;
+  width: 100%;
   display: flex;
   align-items: center;
   /* justify-content: center; */
   background: rgba(95, 161, 65, 0.404);
+  /* border: 1px solid black; */
 }
 
 .GameDropDownMenu {
@@ -183,7 +186,7 @@ dialog {
   position: fixed;
   z-index: 1;
   left: 0;
-  top: 0;
+  top: 20px;
   background: whitesmoke;
   border: none;
   border-radius: 12px;

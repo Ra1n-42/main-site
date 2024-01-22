@@ -91,3 +91,9 @@ app.get("/collection/:collName", async (req, res) => {
 });
 
 app.use(authRoutes);
+
+//If no route is matched by now, it must be a 404
+app.use(function (req, res) {
+  // Invalid request
+  res.render("error");
+});

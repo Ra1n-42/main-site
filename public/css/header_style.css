@@ -17,7 +17,7 @@
 
 header {
   z-index: 500;
-  position: sticky;
+  position: fixed;
   display: flex;
   height: 90px;
   top: 0;
@@ -49,9 +49,6 @@ header {
   align-items: center;
 
   & .UserLogin {
-    /* width: 32px;
-    height: 32px; */
-
     cursor: pointer;
     text-decoration: none;
     color: black;
@@ -67,7 +64,7 @@ header {
 .UserPanel {
   position: absolute;
   z-index: 1;
-  margin-top: 70px;
+  margin-top: 80px;
   right: 36px;
   display: none;
   & .UserPanelSkeleton {
@@ -130,7 +127,6 @@ header {
 
   &::after {
     content: attr(data-label);
-    /* content: ""; */
   }
   &:hover {
     box-shadow: 0px 0px 5px -1px rgba(129, 129, 129, 0.75);

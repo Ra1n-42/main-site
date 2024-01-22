@@ -1,4 +1,8 @@
-.dashboard {
-  width: 100%;
-  background: red;
+main {
+  margin-top: 90px;
+  display: flex; /* Use flexbox for layout */
+  height: calc(100vh - 90px);
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
 }

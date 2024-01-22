@@ -7,6 +7,8 @@
   --mrg: 20px;
   --logo-fs: 21px;
   --avatarsize: 35px;
+
+  --header-margin: 90px;
 }
 
 .CollectionContainer {
@@ -21,6 +23,7 @@
   margin-inline: 25px;
   & .TitleLink {
     text-decoration: none;
+    color: black;
     font-size: var(--fs-600);
     font-weight: 500;
   }
